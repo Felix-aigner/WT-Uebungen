@@ -1,0 +1,21 @@
+
+nav {
+    line-height: 40px;
+}
+
+
+.login-form {
+    float: right;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-bottom: 50px;
+    background-color: dimgray;
+}
+.logout-form {
+    float: right;
+    padding: 25px;
+    background-color: dimgray;
+}
+main {
+    padding-top: 60px;
+}

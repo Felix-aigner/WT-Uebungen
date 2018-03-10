@@ -1,0 +1,23 @@
+.nav-wrapper {
+    line-height: 60px;
+    text-align: center;
+}
+
+.main-container {
+    padding-top: 50px;
+    text-align: center;
+}
+
+.main-wrapper h2 {
+    text-align: center;
+}
+.signup-form {
+    text-align: center;
+    width: 400px;
+
+}
+.signup-form input{
+    width: 100%;
+    height: 40px;
+    padding: 0px 5px;
+}
