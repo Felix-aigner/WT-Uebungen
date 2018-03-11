@@ -11,6 +11,10 @@
         $pass = $_POST['password'];
         if($username == $user['user'] && $pass == $user['pass']){
             session_start();
+            $cookie_name = $username;
+            $cookie_waren = 0;
+            setcookie($cookie_name, $cookie_waren, time() + (86400 * 30), "/"); // 86400 = 1 day
+
             $_SESSION['simple_login'] = $username;
             include("home.php");
             exit();
@@ -45,8 +49,13 @@
                 </fieldset>
             </form>
         </div>
-
+        <div>
+            <?php
+                include("navi.php");
+            ?>
+        </div>
     </nav>
+
     <main>
 
         <h2>Welcome to WT-Webshop</h2>
