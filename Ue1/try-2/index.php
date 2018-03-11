@@ -21,12 +21,27 @@
     {
         $username = $_POST['username'];
         $pass = $_POST['password'];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c7502187152716fb2cd7bf4e77971de190d4b832
         if($username == $user['user'] && $pass == $user['pass'])
         {
             if(!isset($_COOKIE['user']))
             {
                 setcookie("user", $username, time() + (86400 * 30), "/"); // 86400 = 1 day
             }
+<<<<<<< HEAD
+=======
+=======
+        if($username == $user['user'] && $pass == $user['pass']){
+            session_start();
+            $cookie_name = $username;
+            $cookie_waren = 0;
+            setcookie($cookie_name, $cookie_waren, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+>>>>>>> 4a5fac1f6e4072f62d8d5ceb521d4ca090bb89b5
+>>>>>>> c7502187152716fb2cd7bf4e77971de190d4b832
             $_SESSION['simple_login'] = $username;
         }
         else
@@ -51,6 +66,42 @@
     <link href="res/style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    <nav>
+        <div class="login-form">
+            <h3>Please sign in</h3>
+            <?php echo $error; ?>
+            <form method="post" action="index.php">
+                <fieldset>
+                    <div class="form-group">
+                        <input placeholder="Username" name="username" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input placeholder="Password" name="password" type="password" value="">
+                    </div>
+                        <input type="submit" value="Login"/>
+                </fieldset>
+            </form>
+        </div>
+        <div>
+            <?php
+                include("navi.php");
+            ?>
+        </div>
+    </nav>
+
+    <main>
+
+        <h2>Welcome to WT-Webshop</h2>
+        <h3>To view further information login</h3>
+
+
+    </main>
+>>>>>>> 4a5fac1f6e4072f62d8d5ceb521d4ca090bb89b5
+>>>>>>> c7502187152716fb2cd7bf4e77971de190d4b832
 
     <header>
         <div class="container">
