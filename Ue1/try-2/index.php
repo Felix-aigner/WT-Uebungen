@@ -1,45 +1,40 @@
 <?php
-    session_start();
-    $user = array(
+    session_start(); //beim start der Seite wird dies session gestartet
+    $_SESSION['section']="Home";//per default wird in der section "Home" gespeichert, damit der home-screen auch beim ersten aufrufen geladen wird.
+    $user = array( //array für die korrekten userdaten
         "user" => "test",
         "pass"=>"1234"          
     );
-    $error = "";
+    $error = ""; //error wir ohne inhalt vordefiniert, damit anchher ein alert "ohne inhalt" ausgegeben werden kann 
     
-    if(!isset($_COOKIE['']))
+    if(!isset($_COOKIE['page'])) //wenn der page cookie noch nicht gesetzt ist, soll er initialisiert werden
+    {
+        setcookie("page", "Home", time() + (86400 * 30), "/");
+    }
     
-    
-
-    //echo daten
-    echo session_id()."<br/>";
-    echo $_COOKIE['user']."<br/>";
-    echo $cookie_page."<br/>";
-    //echo daten
-
-    
-    if(isset($_POST['username'],$_POST['password']))
+    if(isset($_POST['username'],$_POST['password']))//abfrage ob im login-panel etwas eingegeben wurde
     {
         $username = $_POST['username'];
         $pass = $_POST['password'];
-        if($username == $user['user'] && $pass == $user['pass'])
+        if($username == $user['user'] && $pass == $user['pass'])//überprüfen ob die eingaben stimmen
         {
-            if(!isset($_COOKIE['user']))
+            if(!isset($_COOKIE['user']))//abfrage ob der usercookie noch nicht gesetzt wurde
             {
                 setcookie("user", $username, time() + (86400 * 30), "/"); // 86400 = 1 day
             }
-            $_SESSION['simple_login'] = $username;
+            else
+            {
+                $_COOKIE['user']=$username; //wenn der cookie bereits initiiert wurde bekommt er den value von user
+            }
+            $_SESSION['simple_login'] = $username; //username wird in der session gespeichert
         }
         else
         {
-            $error = '<div class="alert alert-danger">Invalid Login</div>';   
+            $error = '<div class="alert alert-danger">Invalid Login</div>';   //allert wird aufgefüllt um nachher wieder ausgegeben zu werden
         }
 
     }
 
-    if($_COOKIE['user']==$user['user'] && !isset($_SESSION['simple-login']))
-    {
-        $_SESSION['simple_login']=$_COOKIE['user'];
-    }
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -58,7 +53,7 @@
         </div>
     </header>
     <?php 
-    if(!isset($_SESSION['simple_login']))
+    if(!isset($_SESSION['simple_login']))//wechsel zwischen login und logout form (je nach angemeldet oder nicht)
     {
         include("login-form.php"); 
     }
@@ -69,14 +64,30 @@
     ?>
 
     <?php
-        if(isset($_GET['section']))
+        if(isset($_GET['section']))//wenn ein neuer menüpunkt angeklickt wird, wird das im entsprechenden cookie gespeichert
         {
-            setcookie("page", $_SESSION['section'], time() + (86400 * 30), "/");
-            $page = $_SESSION['section'];
-            echo "<br/><h2 style=\"text-align: center;\"> $page </h2>";
+            
+            $_COOKIE['page'] = $_GET['section'];
+            $page =  $_COOKIE['page'];
         }
-        
+        $page = $_COOKIE['page'];
+        //laden des section-entsprechenden php files
+        if($page=="Home")
+        {
+            include("Home.php");
+        }
+        else if($page=="Produkte")
+        {
+            include("Produkte.php");
+        }
+        else if($page=="Warenkorb")
+        {
+            include("Warenkorb.php");
+        }
+        else{}
     ?>
 
+
+    
     </body>
 </html>

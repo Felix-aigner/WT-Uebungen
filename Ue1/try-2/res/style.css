@@ -22,6 +22,7 @@ nav a {
     text-decoration: none;
     cursor: pointer;
     color: black;
+    margin-left: 20px;
 
 }
 .login-form {
@@ -33,6 +34,7 @@ nav a {
     padding-left: 25px;
     padding-bottom: 50px;
     background-color: dimgray;
+    opacity: 0.85;
 }
 .logout-form {
     position: fixed;
@@ -43,7 +45,62 @@ nav a {
     padding-left: 25px;
     padding-bottom: 50px;
     background-color: dimgray;
+    opacity: 0.85;
 }
-main {
-    padding-top: 60px;
+.info {
+    padding-top: 80px;
+    margin-bottom: 100px;
+}
+.info h2 {
+    text-align: center;
+}
+.home-text{
+    border: 3px solid dimgray;
+    padding: 7px;
+    margin: auto;
+    margin-bottom: 100px;
+    width: 87%;
+}
+.info img {
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+.under-const {
+    display: block;
+    margin: auto;
+    width: 150px;
+    margin-top: 20px;
+}
+.products{
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 100px;
+}
+.produkt{
+    display: block;
+    border: 3px solid dimgray;
+    margin: 30px;
+    margin-bottom: 50px;
+}
+.produkt p{
+    text-align: center;
+}
+.produkt img{
+    margin-top: 13px;
+}
+
+footer li{
+    float: left;
+    margin-left: 20px;
+    color: white;
+}
+.footer{
+    position: fixed;
+    bottom: 0px;
+    margin-top: 50px;
+    height: 40px;
+    background: dimgray;
+    opacity: 0.85;
 }
