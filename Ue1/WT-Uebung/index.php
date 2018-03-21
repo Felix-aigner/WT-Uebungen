@@ -5,7 +5,7 @@
         "user" => "test",
         "pass"=>"1234"          
     );
-    $error = ""; //error wir ohne inhalt vordefiniert, damit anchher ein alert "ohne inhalt" ausgegeben werden kann 
+    $error = ""; //error wir ohne inhalt vordefiniert, damit nachher ein alert "ohne inhalt" ausgegeben werden kann 
     
     if(!isset($_COOKIE['page'])) //wenn der page cookie noch nicht gesetzt ist, soll er initialisiert werden
     {
