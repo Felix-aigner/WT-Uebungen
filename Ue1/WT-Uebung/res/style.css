@@ -104,3 +104,13 @@ footer li{
     background: dimgray;
     opacity: 0.85;
 }
+.Gallery{
+    margin-top: 50px;
+}
+.Bilder li{
+    decoration: none;
+    float: right;
+}
+.Bilder ul{
+    list-style-type: none;
+}

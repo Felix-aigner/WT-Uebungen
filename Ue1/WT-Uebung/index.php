@@ -1,5 +1,63 @@
+
+
+
+<?php //putenv('LDAPTLS_REQCERT=never');?> 
 <?php
     session_start(); //beim start der Seite wird dies session gestartet
+/*
+    if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"]!="on")
+    {
+        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        exit;
+    }
+
+    $ldapserver="ldap.technikum-wien.at";
+    $serchbase="dc=technikum-wien, dc=at";
+
+    $username=(isset($_POST['username']))?$_POST['username']:NULL;
+    $password=(isset($_POST['password']))?$_POST['password']:NULL;
+
+    if(!$username)
+    {
+        include("login-form.php");
+    }
+    else
+    {
+        $username=strtolower($username);
+        $ds=ldap_connect($ldapserver);
+        if(!$ds){$error = '<div class="alert alert-danger">Invalid Login</div>';exit;}
+        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ds, LDAP_OPT_REFERALS, 0);
+
+        $ldapbind=false;
+        if(ldap_start_tls($ds))
+        {
+            $dn="ou=People," . $searchbase;
+        }
+        $ldapbind=@ldap_bind($ds, "uid=".$username . "," . $dn, $password);
+        if($ldapbind)
+        {
+            $filter="(uid=$username)";
+            $justthese=array("ou", "sn", "givenname", "mail");
+            $sr=ldap_search($ds, $dn, $filter, $justthese);
+            $info=ldap_get_entries($ds, $sr);
+            echo $info["count"]."entries returned\n<br/>";
+            $k=0;
+            for($i=0;$k<$info[$i]["count"];$k++)
+            {
+                $data=$info[$i][$k];
+                echo $data.": ".$info[$i][$data][0]."\n<br/>";
+            }
+        }
+        ldap_close($ds);
+        if(!$ldapbind)
+            echo "(connection error)\n";
+        else
+            echo "(connection okay)\n";
+    }
+    */
+
+
     $_SESSION['section']="Home";//per default wird in der section "Home" gespeichert, damit der home-screen auch beim ersten aufrufen geladen wird.
     $user = array( //array für die korrekten userdaten
         "user" => "test",
@@ -84,9 +142,12 @@
         {
             include("Warenkorb.php");
         }
-        else{}
+        else if($page=="Gallery")
+        {
+            include("Gallery.php");
+        }else{}
     ?>
-
+   
 
     
     </body>
