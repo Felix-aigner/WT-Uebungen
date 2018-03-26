@@ -1,62 +1,124 @@
 
 
 
-<?php //putenv('LDAPTLS_REQCERT=never');?> 
+<?php ?> 
 <?php
     session_start(); //beim start der Seite wird dies session gestartet
-/*
-    if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"]!="on")
-    {
+
+
+    
+
+    /* sicheres LDAP-Login
+      1) Verbindung Browser - Webserver wird zwingend auf HTTPS gestellt
+      2) Verbindung Webserver - LDAP-Server erfolgt verschlüsselt
+    
+      Achtung: bei der Verwendung von XAMPP kann es zu Problemen kommen
+      --> in der php.ini muss "extension=php_ldap.dll" oder "extension=ldap"
+      inkludiert sein (gegebenenfalls Strichpunkt am Anfang weg)
+      --> Da das Standardzertifikat des Apache unter XAMPP nicht zertifiziert
+      ist, kann der Browser beim ersten Aufruf erwarten, dass das Zertifikat
+      akzeptiert wird (permantent zulassen)
+      --> unter Windows kann es sein, dass die Datei ldap.conf fehlt
+      --> ldap.conf muss die Zeile "TLS_REQCERT never" enthalten
+      --> es kann verschiedene Orte geben, wo ldap.conf erwartet wird
+      (versuchen Sie es in dieser Reihenfolge)
+      --> c:\openldap\sysconf
+      --> c:\openldap
+      --> c:\
+      --> c:\xampp
+      --> c:\xampp\apache\conf
+    
+     */
+    
+    /* Überprüfen auf HTTPS, gegebenenfalls umschalten 
+      -----------------------------------------------
+     */
+    //If the HTTPS is not found to be "on"
+    if (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
+        //Tell the browser to redirect to the HTTPS URL.
         header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+        //Prevent the rest of the script from executing.
         exit;
     }
-
-    $ldapserver="ldap.technikum-wien.at";
-    $serchbase="dc=technikum-wien, dc=at";
-
-    $username=(isset($_POST['username']))?$_POST['username']:NULL;
-    $password=(isset($_POST['password']))?$_POST['password']:NULL;
-
-    if(!$username)
-    {
-        include("login-form.php");
+    
+    //ldap config
+    
+    define("LDAPPATH", "ldap.technikum-wien.at");
+    define("LDAPBASE", "dc=technikum-wien,dc=at");
+    
+    //formular lesen
+    $username = (isset($_POST['username'])) ? $_POST['username'] : NULL;
+    $password = (isset($_POST['password'])) ? $_POST['password'] : NULL;
+    
+    if (!$username) {
+        showForm($username, $password);
+    } else {
+        lookupUserData($username, $password);
     }
-    else
-    {
-        $username=strtolower($username);
-        $ds=ldap_connect($ldapserver);
-        if(!$ds){$error = '<div class="alert alert-danger">Invalid Login</div>';exit;}
-        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
-        ldap_set_option($ds, LDAP_OPT_REFERALS, 0);
-
-        $ldapbind=false;
-        if(ldap_start_tls($ds))
-        {
-            $dn="ou=People," . $searchbase;
-        }
-        $ldapbind=@ldap_bind($ds, "uid=".$username . "," . $dn, $password);
-        if($ldapbind)
-        {
-            $filter="(uid=$username)";
-            $justthese=array("ou", "sn", "givenname", "mail");
-            $sr=ldap_search($ds, $dn, $filter, $justthese);
-            $info=ldap_get_entries($ds, $sr);
-            echo $info["count"]."entries returned\n<br/>";
-            $k=0;
-            for($i=0;$k<$info[$i]["count"];$k++)
-            {
-                $data=$info[$i][$k];
-                echo $data.": ".$info[$i][$data][0]."\n<br/>";
+    
+    function showForm($username, $password){
+        include("login-form.php");   
+    }
+    
+    function lookupUserData($username, $password){
+        // LDAP-Login probieren
+    
+        $clearedLoginname = strtolower($username);
+        // LDAP connect
+        $ldapConnection = establishConnection();
+        // LDAP bind
+        $ldapbind = false;
+    
+        if (ldap_start_tls($ldapConnection)){ // verschlüsselte Verbindung verwenden
+            $directoryName = "ou=People," . LDAPBASE;  // wo wird gesucht?
+            $ldapbind = ldap_bind($ldapConnection, "uid=" . $clearedLoginname . "," . $directoryName, $password);
+            if ($ldapbind) {
+                performLookupAndDisplayData($clearedLoginname,$ldapConnection,$directoryName);
             }
+            ldap_close($ldapConnection);
+            if (!$ldapbind){
+                echo "(Connection ERROR)\n";
+            } else {
+                echo "(Connection OK)\n";
+            }
+        } else {
+            echo "error";
+            exit;
         }
-        ldap_close($ds);
-        if(!$ldapbind)
-            echo "(connection error)\n";
-        else
-            echo "(connection okay)\n";
+        
     }
-    */
-
+    
+    function establishConnection(){
+        $ldapConnection = ldap_connect(LDAPPATH);
+         if (!$ldapConnection) {
+            echo "Connect-Error";
+            die();
+        }
+    
+        // LDAP settings
+        ldap_set_option($ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ldapConnection, LDAP_OPT_REFERRALS, 0);
+        
+        return $ldapConnection;
+    }
+    
+    function performLookupAndDisplayData($clearedLoginname,$ldapConnection,$directoryName){
+        //erfolgreich angemeldet
+        // LDAP search (Suche am gebundenen Knoten)
+        $filter = "(uid=$clearedLoginname)";
+        $justthese = array("ou", "sn", "givenname", "mail"); // nur nach diesen Einträgen suchen
+        $searchResult = ldap_search($ldapConnection, $directoryName, $filter, $justthese); // Suche wird durchgeführt
+        $info = ldap_get_entries($ldapConnection, $searchResult); // gefundene Einträge werden ausgelesen
+    
+        vardump($info);
+    
+        echo $info["count"] . " entries returned\n<br>";
+        $entries = $info[0];
+        foreach ($entries as $key => $value) {
+            echo $key . ":  " . $value . "\n<br>";
+        }
+    }
+    
 
     $_SESSION['section']="Home";//per default wird in der section "Home" gespeichert, damit der home-screen auch beim ersten aufrufen geladen wird.
     $user = array( //array für die korrekten userdaten
@@ -111,14 +173,14 @@
         </div>
     </header>
     <?php 
-    if(!isset($_SESSION['simple_login']))//wechsel zwischen login und logout form (je nach angemeldet oder nicht)
+   /* if(!isset($_SESSION['simple_login']))//wechsel zwischen login und logout form (je nach angemeldet oder nicht)
     {
         include("login-form.php"); 
     }
     else
     {
         include("logout-form.php");
-    }
+    }*/
     ?>
 
     <?php
@@ -144,6 +206,12 @@
         }
         else if($page=="Gallery")
         {
+            if(isset($_SESSION['simple_login']))
+            {
+                ?><div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><?php
+                include("upload.php");
+                ?></div><?php
+            }
             include("Gallery.php");
         }else{}
     ?>

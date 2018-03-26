@@ -35,7 +35,7 @@ if (isset($_FILES['userfile'])) {							// wurde Datei per POST-Methode upgeload
 	</form>
 
 <?php
-
+/*
 	if(isset($_GET['delete']) && $_GET['delete']){
 		unlink($_GET['delete']);
 	}
@@ -50,5 +50,5 @@ if (isset($_FILES['userfile'])) {							// wurde Datei per POST-Methode upgeload
 		}
 	}
 	//var_dump($files);
-
+*/
 	?>

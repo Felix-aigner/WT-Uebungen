@@ -5,7 +5,7 @@
         <h2>Gallery</h2>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <h3>Formular zum Upload</h3>
-            <?php include("upload.php"); ?>
+            
         </div>
     </div>
 </div>
