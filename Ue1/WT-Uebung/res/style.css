@@ -114,3 +114,18 @@ footer li{
 .Bilder ul{
     list-style-type: none;
 }
+
+
+.user{
+    float: right;
+    margin-right: 50px;
+}
+.upload-form{
+    background-color: grey;
+}
+
+#dropbox
+{
+    padding: 20px;
+    border-style: dotted 2px black;
+}

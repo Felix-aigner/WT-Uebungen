@@ -1,14 +1,5 @@
 
 
-<div class="info">
-    <div class="Gallery">
-        <h2>Gallery</h2>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <h3>Formular zum Upload</h3>
-            
-        </div>
-    </div>
-</div>
 <div class="Bilder">
     
        <ul id="galerie">

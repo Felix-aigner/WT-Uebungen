@@ -3,6 +3,6 @@
     unset($_COOKIE['user']);
     unset($_COOKIE['page']);
 
-    unset($_SESSION['simple_login']);
+    unset($_SESSION['login']);
     header("Location: index.php");
 ?>
