@@ -35,9 +35,7 @@
                 <img src="res/cage-pillow.jpg" alt="cage"/>
                 <p>Nicolas Pillow</p>
             </div>
-        </div>
-        
-        
+        </div> 
     </main>
-    </div>
-    <?php include("footer.php"); ?>
+</div>
+<?php include("footer.php"); ?>

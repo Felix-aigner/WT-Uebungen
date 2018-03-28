@@ -21,45 +21,33 @@ if (isset($_FILES['userfile'])) {							// wurde Datei per POST-Methode upgeload
 	echo "ziel: ".$subdir.$fileupload['name']." <br>";		// Pfad und Dateiname, wo die hochgeladene Datei hinkopiert werden soll
 	echo "<br>";
 	*/
-
-
+	
+	if($fileupload['type']=="image/jpeg" || $fileupload['type']=="image/jpg" || $fileupload['type']=="image/gif" || $fileupload['type']=="image/png")
+	{
 	// Pr�fungen, ob Dateiupload funktioniert hat
 	if ( !$fileupload['error'] 								// kein Fehler passiert
 		&& $fileupload['size']>0						// Gr��e > 0	
     	&& $fileupload['tmp_name']							// hochgeladene Datei hat einen tempor�ren Namen
-    	&& is_uploaded_file($fileupload['tmp_name']))		// nur dann true, wenn Datei gerade erst hochgeladen wurde
-    	  move_uploaded_file($fileupload['tmp_name'],$subdir.$fileupload['name']);  // erst dann ins neue Verzeichnis verschieben
-	else echo 'Fehler beim Upload';
+		&& is_uploaded_file($fileupload['tmp_name']))
+		{
+			move_uploaded_file($fileupload['tmp_name'],$subdir.$fileupload['name']);  // erst dann ins neue Verzeichnis verschieben
+		}		// nur dann true, wenn Datei gerade erst hochgeladen wurde
+		 else echo 'Fehler beim Upload';
+	}
 }
 
 ?>
-
 	<form method="post" action="index.php?section=Gallery" enctype="multipart/form-data">
       <input type="hidden" name="MAX_FILE_SIZE" value="1024000">
       Filename: <input name="userfile" type="file">
       <input type="submit" value="Upload">
 	</form>
-
-	
-
 <?php
 
-	if(isset($_GET['delete']) && $_GET['delete']){
-		unlink($_GET['delete']);
-	}
-	
-	//$fileHandle = opendir($subdir);
-	
-	/*while($myFile = readdir($fileHandle)){
-		if($myFile != "." && $myFile != ".."){
-			echo "<p>";
-			echo "<img src='".$subdir.$myFile."'><a href='upload.php?delete=".$subdir.$myFile."'>Delete</a>";
-			echo "</p>";
-		}
-	}*/
-	//var_dump($files);
-
-	?>
+if(isset($_GET['delete']) && $_GET['delete']){
+	unlink($_GET['delete']);
+}
+?>
 
 </body>
 </html>

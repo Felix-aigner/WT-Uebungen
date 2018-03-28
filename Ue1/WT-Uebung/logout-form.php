@@ -1,8 +1,4 @@
 
-
-
-
-
 <nav>
     <div class="menu">
         <ul>
