@@ -93,7 +93,7 @@
             {
                 $name=$_SESSION['login'];
                 
-                echo "<div class=\"user\"><h3> Eingeloggt als $name</h3></div>";   
+                echo "<div class=\"user\"><h4> Eingeloggt als $name</h4></div>";   
             }
             ?> 
             <?php
@@ -131,11 +131,11 @@
                     ?>
                     <div class="upload-form col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <?php
-                    include("upload-form.php");
                     include("upload.php");
+                    include("upload-form.php");
                     ?>
                     </div>
-                    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
                     <?php
                     include("Gallery.php");
                     ?>
@@ -145,10 +145,10 @@
                 else
                 {
                     ?>
-                    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
-                        <h3>Zum uploaden von Dateien<br/>melden sie sich an</h3>
+                    <div class="unlogged-form col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <h3>Bitte logge ich ein<br/>um Bilder hochzuladen!</h3>
                     </div>
-                    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
                     <?php
                     include("Gallery.php");
                     ?>

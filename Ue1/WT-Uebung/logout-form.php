@@ -9,10 +9,10 @@
         </ul>
     </div>
     <div class="logout-form">
-        <h3>Sign out</h3>
+        <h4>Sign out</h4>
         <form action="logout.php">
             <fieldset>
-                    <input type="submit" value="Logout"/>
+                    <input type="submit" value="Logout" id="logout"/>
             </fieldset>
         </form>
     </div>  

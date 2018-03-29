@@ -36,7 +36,7 @@
         ?>
            <li class="col-lg-3 col-md-3 col-sm-3">
                <a href="<?php echo $bildinfo['dirname']."/".$bildinfo['basename'];?>">
-               <img src="<?php echo $bildinfo['dirname']."/".$bildinfo['basename'];?>" width="140" alt="Vorschau" /></a> 
+               <img src="<?php echo $bildinfo['dirname']."/".$bildinfo['basename'];?>" alt="Vorschau" class="responsive" /></a> 
                <!--<span><?php// echo $bildinfo['filename']; ?> (<?php //echo $size ; ?>kb)</span>-->
            </li>
        <?php
