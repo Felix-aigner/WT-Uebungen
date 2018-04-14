@@ -8,12 +8,4 @@
             <li><a href="index.php?section=Gallery">Gallery</a></li>
         </ul>
     </div>
-    <div class="logout-form">
-        <h4>Sign out</h4>
-        <form action="logout.php">
-            <fieldset>
-                    <input type="submit" value="Logout" id="logout"/>
-            </fieldset>
-        </form>
-    </div>  
 </nav>
