@@ -43,60 +43,6 @@ else
     <input type="submit" name="edit" id="90 Grad rechts" value="90 Grad rechts"><br/>
     <input type="submit" name="edit" id="90 Grad rechts" value="90 Grad links"><br/>
     <input type="submit" name="edit" id="Spiegeln" value="Spiegeln"><br/>
+    <input type="submit" name="edit" id="undo" value="undo"><br/>
     <input type="submit" name="edit" id="Cancel" value="Cancel"><br/>
 </form>
-
-<?php
-
-
-
-
-
-
-
-
-/*// Maximalausmaße
-$maxthumbwidth = 150;
-$maxthumbheight = 100;
-// Ausmaße kopieren, wir gehen zuerst davon aus, dass das Bild schon Thumbnailgröße hat
-$thumbwidth = $imagewidth;
-$thumbheight = $imageheight;
-// Breite skalieren falls nötig
-if ($thumbwidth > $maxthumbwidth)
-{
-    $factor = $maxthumbwidth / $thumbwidth;
-    $thumbwidth *= $factor;
-    $thumbheight *= $factor;
-}
-// Höhe skalieren, falls nötig
-if ($thumbheight > $maxthumbheight)
-{
-    $factor = $maxthumbheight / $thumbheight;
-    $thumbwidth *= $factor;
-    $thumbheight *= $factor;
-}
-// Thumbnail erstellen
-$thumb = imagecreatetruecolor($thumbwidth, $thumbheight);
-
-imagecopyresampled(
-    $thumb,
-    $image,
-    0, 0, 0, 0, // Startposition des Ausschnittes
-    $thumbwidth, $thumbheight,
-    $imagewidth, $imageheight
-);*/
-
-
-
-
-
-
-/*header('Content-Type: image/png'); //BIld speichern
-imagepng($thumb);
-// In Datei speichern
-// $thumbfile = 'thumbs/' . $imagefile;
-// imagepng($thumb, $thumbfile);
-imagedestroy($thumb);
-?>*/
-
- ?>
