@@ -25,22 +25,25 @@ if(!isset($_SESSION['change']))
         default:
             die('Unsupported imageformat');
     }
-
-    echo 'Grafik-Typ: ' . $imagesize[2] . '<br>';
     
     echo "<img src ='files/$imagefile'>";
 
 
-    echo 'name: '. $imagefile;
 }
 else
 {    
-    echo "<img src ='files/edited/img_filter_grayscale.jpg'>";
+
+    $foto = $_SESSION['latestedit'];
+
+    echo "<img src ='$foto'>";
 }
 ?>
 <form action="edit.php" enctype="multipart/form-data" method="post">
     <input type="submit" name="edit" id="Grayscale" value="Grayscale"><br/>
-    <input type="submit" name="edit" id="cancel" value="cancel"><br/>
+    <input type="submit" name="edit" id="90 Grad rechts" value="90 Grad rechts"><br/>
+    <input type="submit" name="edit" id="90 Grad rechts" value="90 Grad links"><br/>
+    <input type="submit" name="edit" id="Spiegeln" value="Spiegeln"><br/>
+    <input type="submit" name="edit" id="Cancel" value="Cancel"><br/>
 </form>
 
 <?php

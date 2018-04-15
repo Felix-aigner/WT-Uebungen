@@ -8,18 +8,51 @@ if($_POST['edit'])
         $imagefile=$_SESSION['imagefile'];
         $image = imagecreatefromjpeg("files/$imagefile");
         imagefilter($image, IMG_FILTER_GRAYSCALE);
-        imagejpeg($image, "files/edited/img_filter_grayscale.jpg");
-        //$_SESSION['changemade']=1;
-        echo "<img src =\"files/edited/img_filter_grayscale.jpg\">";
-        
+        imagejpeg($image, "files/edited/gray_$imagefile");
+        $_SESSION['latestedit']="files/edited/gray_".$imagefile;
         $_SESSION['change']=1;
         header("Location: bildbearbeitung.php");
-        //header("Refresh:5");
+
     }
-    else if($_POST['edit']=="cancel")
+    else if($_POST['edit']=="Cancel")
     {
         unset($_SESSION['change']);
         header("Location: index.php?section=Gallery");
+    }
+
+    else if($_POST['edit']=="90 Grad rechts")
+    {
+        $imagefile=$_SESSION['imagefile'];
+        $degrees = 270;
+        $image = imagecreatefromjpeg("files/$imagefile");
+        $rotate=imagerotate($image, $degrees, 0);
+        imagejpeg($rotate, "files/edited/rechts_$imagefile");
+        $_SESSION['latestedit']="files/edited/rechts_".$imagefile;
+        $_SESSION['change']=1;
+        header("Location: bildbearbeitung.php");
+    }
+    else if($_POST['edit']=="90 Grad links")
+    {
+        $imagefile=$_SESSION['imagefile'];
+        $degrees = 90;
+        $image = imagecreatefromjpeg("files/$imagefile");
+        $rotate=imagerotate($image, $degrees, 0);
+        imagejpeg($rotate, "files/edited/links_$imagefile");
+        $_SESSION['latestedit']="files/edited/links_".$imagefile;
+        $_SESSION['change']=1;
+        header("Location: bildbearbeitung.php");
+
+    }
+    else if($_POST['edit']=="Spiegeln")
+    {
+        $imagefile=$_SESSION['imagefile'];
+        $image = imagecreatefromjpeg("files/$imagefile");
+        imageflip($image, IMG_FLIP_HORIZONTAL);
+        imagejpeg($image, "files/edited/spiegeln_$imagefile");
+        
+        $_SESSION['change']=1;
+        header("Location: bildbearbeitung.php");
+
     }
 }
 
