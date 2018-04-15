@@ -7,7 +7,11 @@
 <?php
 
 	session_start(); //beim start der Seite wird dies session gestartet
+<<<<<<< HEAD
 	$_SESSION['changemade']=0;
+=======
+
+>>>>>>> e9b7414420a872130c6e59bc1ae44a2d36ce54c8
 	if(isset($_POST['formaction']))
 	{
 		session_unset();
@@ -17,8 +21,12 @@
 	{
 		//If the HTTPS is not found to be "on"
 		if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on")
+<<<<<<< HEAD
 		{		
 			$_COOKIE['page'] = "Home";
+=======
+		{
+>>>>>>> e9b7414420a872130c6e59bc1ae44a2d36ce54c8
 			//Tell the browser to redirect to the HTTPS URL.
 			header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
 			//Prevent the rest of the script from executing.
@@ -368,7 +376,11 @@
 			{
 				include("register-change.php");
 			}
+<<<<<<< HEAD
 			else if($page=="Gallery")
+=======
+            else if($page=="Gallery")
+>>>>>>> e9b7414420a872130c6e59bc1ae44a2d36ce54c8
             {
                 ?>
                 <div class="info">
