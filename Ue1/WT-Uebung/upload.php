@@ -1,6 +1,7 @@
 
 <html>
 <body>
+<h3>Formular zum Upload</h3>
 
 <?php
 $subdir = "./files/"; 		// Stelle, wo die Datei hinkopiert werden soll 
@@ -37,9 +38,11 @@ if (isset($_FILES['userfile'])) {							// wurde Datei per POST-Methode upgeload
 }
 
 ?>
-	<form method="post" action="index.php?section=Gallery" enctype="multipart/form-data">
+
+	<form class="form" method="post" action="index.php?section=Gallery" enctype="multipart/form-data">
       <input type="hidden" name="MAX_FILE_SIZE" value="1024000">
-      Filename: <input name="userfile" type="file">
+	  <p>Filename:</p> 
+	  <input name="userfile" type="file" class="inputfile">
       <input type="submit" value="Upload">
 	</form>
 <?php
