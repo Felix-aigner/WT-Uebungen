@@ -362,7 +362,11 @@
             else if($page=="Warenkorb")
             {
                 include("Warenkorb.php");
-            }
+			}
+			else if($page=="register-change")
+			{
+				include("register-change.php");
+			}
             else if($page=="Gallery")
             {
                 ?>
