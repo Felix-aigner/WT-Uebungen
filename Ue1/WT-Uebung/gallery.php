@@ -43,6 +43,7 @@
        <?php
         };
         };
+        unset($_SESSION['change']);
        ?>
        </ul>
 

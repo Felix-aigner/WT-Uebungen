@@ -1,60 +1,51 @@
 
 <?php   //Bilder laden
-
-
-$imagefile = $_GET['edit_id'];
-$_SESSION['imagefile']=$imagefile;
-$imagesize = getimagesize("files/$imagefile");
-$imagewidth = $imagesize[0];
-$imageheight = $imagesize[1];
-$imagetype = $imagesize[2];
-switch ($imagetype)
+session_start();
+if(!isset($_SESSION['change']))
 {
-    // Bedeutung von $imagetype:
-    // 1 = GIF, 2 = JPG, 3 = PNG
-    case 1: // GIF
-        $image = imagecreatefromgif("files/$imagefile");
-        break;
-    case 2: // JPEG
-        $image = imagecreatefromjpeg("files/$imagefile");
-        break;
-    case 3: // PNG
-        $image = imagecreatefrompng("files/$imagefile");
-        break;
-    default:
-        die('Unsupported imageformat');
-}
+    $imagefile = $_GET['edit_id'];
+    $_SESSION['imagefile']=$imagefile;
+    $imagesize = getimagesize("files/$imagefile");
+    $imagewidth = $imagesize[0];
+    $imageheight = $imagesize[1];
+    $imagetype = $imagesize[2];
+    switch ($imagetype)
+    {
+        // Bedeutung von $imagetype:
+        // 1 = GIF, 2 = JPG, 3 = PNG
+        case 1: // GIF
+            $image = imagecreatefromgif("files/$imagefile");
+            break;
+        case 2: // JPEG
+            $image = imagecreatefromjpeg("files/$imagefile");
+            break;
+        case 3: // PNG
+            $image = imagecreatefrompng("files/$imagefile");
+            break;
+        default:
+            die('Unsupported imageformat');
+    }
 
-echo 'Grafik-Typ: ' . $imagesize[2] . '<br>';
-if(isset($_SESSION['change']))
-{
-    echo "<img src ='files/edited/img_filter_grayscale.jpg'>";
+    echo 'Grafik-Typ: ' . $imagesize[2] . '<br>';
+    
+    echo "<img src ='files/$imagefile'>";
+
+
+    echo 'name: '. $imagefile;
 }
 else
-{
-    echo "<img src ='files/$imagefile'>";
+{    
+    echo "<img src ='files/edited/img_filter_grayscale.jpg'>";
 }
-
-echo 'name: '. $imagefile;
-
 ?>
-<form method="post">
-    <input type="submit" name="test" id="test" value="Grayscale" onclick= <?php echo grayscale() ?>/><br/>
+<form action="edit.php" enctype="multipart/form-data" method="post">
+    <input type="submit" name="edit" id="Grayscale" value="Grayscale"><br/>
+    <input type="submit" name="edit" id="cancel" value="cancel"><br/>
 </form>
 
 <?php
-function grayscale()
-{
-    $imagefile=$_SESSION['imagefile'];
-    $image = imagecreatefromjpeg("files/$imagefile");
-    imagefilter($image, IMG_FILTER_GRAYSCALE);
-    imagejpeg($image, "files/edited/img_filter_grayscale.jpg");
-    //$_SESSION['changemade']=1;
-    echo "<img src =\"files/edited/img_filter_grayscale.jpg\">";
-    //header("Location: bildbearbeitung.php");
-    $_SESSION['change']="greyscale";
-    //header("Refresh:5");
-}
+
+
 
 
 
